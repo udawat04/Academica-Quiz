@@ -1,4 +1,4 @@
----
+
 # Academica 🎓
 
 **AI-Powered Online Quiz & Interview Preparation Platform**
