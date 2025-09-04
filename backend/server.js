@@ -1,31 +1,30 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const router = require("./Routes/index");
-const morgan = require("morgan");
+require("dotenv").config();
+const userRouter = require("./Routes/userRoutes")
+const courseRouter = require("./Routes/allCoursesRoutes")
+const quizRouter = require("./Routes/quizRoutes")
 const cors = require("cors");
-require("dotenv").config(); // Load .env
-
-const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI;
+const fileUpload = require("express-fileupload");
+const PORT = process.env.PORT || 3000;
 
 const app = express();
-app.use(morgan("dev"));
 
 mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected 🎉🎉"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 app.use(cors());
+app.use(fileUpload());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // safer parsing
-app.use(router);
-
-// static files
+app.use(express.urlencoded()); // Optional: parse JSON request bodies
+app.use("/user",userRouter);
+app.use("/course",courseRouter);
+app.use("/quiz",quizRouter);
+//static file
 app.use(express.static(__dirname + "/public"));
 app.use("/upload", express.static("upload"));
-
-app.get("/", (req, res) => res.send("welcome to Express"));
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
