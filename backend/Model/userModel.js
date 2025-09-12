@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
-const registerSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
@@ -16,7 +16,7 @@ const registerSchema = new mongoose.Schema(
     age: { type: Number, required: true, min: 0 },
     dob: { type: Date },
     profilePic: { type: String, default: "" },
-    address: { type: String, required: true, trim: true },
+    street: { type: String, required: true, trim: true },
     city: { type: String },
     state: { type: String },
     country: { type: String },
@@ -29,5 +29,5 @@ const registerSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Register = mongoose.model("Register", registerSchema);
-module.exports =  Register;
+const User = mongoose.model("user", userSchema);
+module.exports = User;

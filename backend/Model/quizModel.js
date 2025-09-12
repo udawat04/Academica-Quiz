@@ -14,7 +14,7 @@ const QuizSchema = new mongoose.Schema({
   ],
   courseName: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Course", 
+    ref: "Course",
   },
   createdAt: {
     type: Date,
